@@ -1,0 +1,124 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --charcoal: hsl(204, 18%, 26%);
+    --licoriceblack: hsl(0, 18%, 9%);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--licoriceblack);
+    color: var(--white);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+    padding: 0 16px;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+p {
+    font-size: 1.1rem;
+    margin: 10px;
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0 16px;
+}
+
+.controls button {
+    border: 1px solid var(--charcoal);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.1s ease;
+}
+
+#generate-btn {
+    color: var(--black);
+    background-color: var(--white);
+}
+
+#generate-btn:hover {
+    color: var(--white);
+    background-color: var(--charcoal);
+}
+
+#sort-btn {
+    color: var(--white);
+    background-color: var(--charcoal);
+}
+
+#sort-btn:hover {
+    color: var(--black);
+    background-color: var(--white);
+}
+
+.controls button:active {
+    transform: scale(0.97);
+}
+
+.controls button:focus-visible {
+    outline: 3px solid var(--white);
+    outline-offset: 3px;
+}
+
+#array-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    height: 250px;
+    margin-top: 40px;
+    padding: 10px;
+}
+
+.bar {
+    width: 40px;
+    background-color: #0f766e;
+    border-radius: 0;
+    transition: height 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    p {
+        font-size: 1rem;
+    }
+
+    .controls button {
+        padding: 10px 14px;
+    }
+}
+

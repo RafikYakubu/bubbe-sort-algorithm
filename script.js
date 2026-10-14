@@ -1,13 +1,15 @@
 const arrayContainer = document.getElementById("array-container");
 const generateBtn = document.getElementById("generate-btn");
+const sortBtn = document.getElementById("sort-btn");
 
 let num = [];
+let isSorting = false;
 
+// Generate a random array
 function generateArray() {
-    // Clear the previous bars
-    arrayContainer.innerHTML = "";
+    if (isSorting) return;
 
-    // Generate 5 random numbers
+    arrayContainer.innerHTML = "";
     num = [];
 
     for (let i = 0; i < 5; i++) {
@@ -15,11 +17,13 @@ function generateArray() {
         num.push(randomNum);
     }
 
-    // Display the new array
     arrangeNum();
 }
 
+// Display the array as bars
 function arrangeNum() {
+    arrayContainer.innerHTML = "";
+
     for (let i = 0; i < num.length; i++) {
         const bar = document.createElement("div");
 
@@ -30,28 +34,59 @@ function arrangeNum() {
     }
 }
 
-// Generate a new array when the button is clicked
-generateBtn.addEventListener("click", generateArray);
+// Pause the algorithm to make animations visible
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-// Display an array when the page first loads
-generateArray();
+// Bubble Sort with animation
+async function bubbleSort() {
+    if (isSorting) return;
 
-function bubbleSort() {
+    isSorting = true;
+    generateBtn.disabled = true;
+    sortBtn.disabled = true;
+
+    const bars = document.querySelectorAll(".bar");
+
     for (let i = 0; i < num.length; i++) {
         for (let j = 0; j < num.length - i - 1; j++) {
+            // Highlight the two bars being compared
+            bars[j].style.backgroundColor = "orange";
+            bars[j + 1].style.backgroundColor = "orange";
+
+            await sleep(1000);
 
             if (num[j] > num[j + 1]) {
-                // Store the left number temporarily
+                // Swap the values in the array
                 const temp = num[j];
-
-                // Move the right number to the left
                 num[j] = num[j + 1];
-
-                // Move the stored number to the right
                 num[j + 1] = temp;
+
+                // Update the heights of the bars
+                bars[j].style.height = num[j] + "px";
+                bars[j + 1].style.height = num[j + 1] + "px";
             }
+
+            // Restore the original bar color
+            bars[j].style.backgroundColor = "#0f766e";
+            bars[j + 1].style.backgroundColor = "#0f766e";
         }
     }
 
-    console.log(num);
+    // Mark all bars as sorted
+    bars.forEach(bar => {
+        bar.style.backgroundColor = "#22c55e";
+    });
+
+    isSorting = false;
+    generateBtn.disabled = false;
+    sortBtn.disabled = false;
 }
+
+// Button events
+generateBtn.addEventListener("click", generateArray);
+sortBtn.addEventListener("click", bubbleSort);
+
+// Generate the initial array
+generateArray();
